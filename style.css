@@ -1,0 +1,24 @@
+table {
+	border-spacing: 0;
+	border-collapse: collapse;
+}
+
+td {
+	width: 50px;
+	height: 50px;
+	border: 1px solid black;
+	text-align: center;
+	font-size: 35px;
+	position: relative;
+}
+
+.filled {
+	background-color: black;
+}
+
+.number {
+	position: absolute;
+	top: 2px;
+	left: 2px;
+	font-size: 16px;
+}
