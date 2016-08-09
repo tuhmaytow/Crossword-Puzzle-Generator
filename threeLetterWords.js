@@ -11,5 +11,4 @@ function toArray(jsonArray) {
 
 var threeLetterWordsArr = toArray(threeLetterWordsJSON)
 
-console.log(threeLetterWordsArr)
-
+module.exports = threeLetterWordsArr;
