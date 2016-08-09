@@ -1,52 +1,74 @@
+'use strict'
+
 var threeLetterWordsArr = require('./threeLetterWords');
 
-function getRandomArbitrary(min, max) {
-  return Math.random() * (max - min) + min;
-}
+var tempArray = ['dog', 'cat', 'crackers', 'frog', 'bottle', 'boot']
 
-function isWord(word) {
-	var result = false;
-	for (var i = 0; i < threeLetterWordsArr.length; i++) {
-		if (word === threeLetterWordsArr[i]) {
-			result = true;
-		}
-	}
-	return result;
-}
+const t = true;
+const f = false;
 
-function generateRandomPuzzle(arr) {
-	// returns Puzzle in the form of an array of arrays (like testArr below)
-	var randoPuzzle = [];	
-	for (var i = 0; i < 3; i++) {
-		var random = Math.floor(getRandomArbitrary(0, arr.length - 1));
-		randoPuzzle.push(arr[random]);
-	}
-	var downZero = randoPuzzle[0][0] + randoPuzzle[1][0] + randoPuzzle[2][0];
-	var downOne = randoPuzzle[0][1] + randoPuzzle[1][1] + randoPuzzle[2][1];
-	var downTwo = randoPuzzle[0][2] + randoPuzzle[1][2] + randoPuzzle[2][2];	
-	if (isWord(downZero) && isWord(downOne) && isWord(downTwo)) {
-		return randoPuzzle;
+// Define the "word location" class
+const ACROSS = 'across';
+const DOWN = 'down';
+var WordLocations = function(direction, row, column, grid) {
+	this.direction = direction;
+	this.row = row; 
+	this.column = column;
+	this.length = this.checkLength(grid); 
+	this.domain = []; //list of words
+}
+ 
+WordLocations.prototype.checkLength = function(grid) {
+	//return length of WordLocation
+	if (this.direction === ACROSS) {
+		return this._checkLengthAcross(grid);
+	} else if (this.direction === DOWN) {
+		return this._checkLengthDown(grid)
 	} else {
-		return generateRandomPuzzle(arr)
-	}
+		throw new Error('Invalid direction value: ' + this.direction)
+	}   
 }
 
-console.log(generateRandomPuzzle(threeLetterWordsArr))
+WordLocations.prototype._checkLengthAcross = function(grid) {
+	var currItr = this.column + 1;
+	var count = 1;
+	while (!grid[this.row][currItr]) {
+		count += 1;
+		currItr += 1;
+	}
+	return count;
+}
 
-var testArr = [
-	['C', 'A', 'T'],
-	['O', 'N', 'O'],
-	['D', 'O', 'G'],
-];
+WordLocations.prototype._checkLengthDown = function(grid) {
+	var currItr = this.row + 1;
+	var count = 1;
+	while (!grid[currItr][this.column]) {
+		count += 1;
+		currItr += 1;
+	}
+	return count;
+} 
+
+// Write a function that can reduce the total dictionary to the number of words matching the length of a "word location"
+WordLocations.prototype.reduceDict = function(arr, wordLength) {
+	
+}
+
+//Write a function that finds all the word locations and returns an array.
+
+// write an algorithm to look at word locations and determine if they intersect each other
+// create the domain?
 
 
-//build html up with string
-//append innerhtml
 
-// function renderPuzzle(arr) {
-// 	var html = '';
-// 	for (var i = 0; i < arr[0].length; i++) {
 
-// 	}
-// }
+
+
+
+
+
+
+
+
+
 
