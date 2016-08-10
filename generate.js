@@ -1,8 +1,6 @@
 'use strict';
 
-// var threeLetterWordsArr = require('./threeLetterWords');
-//
-// var tempArray = ['dog', 'cat', 'crackers', 'frog', 'bottle', 'boot'];
+var threeLetterWordsArr = require('./threeLetterWords');
 
 const t = true;
 const f = false;
@@ -33,7 +31,7 @@ WordLocations.prototype.checkLength = function(grid) {
 WordLocations.prototype._checkLengthAcross = function(grid) {
 	var currItr = this.column + 1;
 	var count = 1;
-	while (!grid[this.row][currItr]) {
+	while (grid[this.row][currItr]) {
 		count += 1;
 		currItr += 1;
 	}
@@ -43,7 +41,7 @@ WordLocations.prototype._checkLengthAcross = function(grid) {
 WordLocations.prototype._checkLengthDown = function(grid) {
 	var currItr = this.row + 1;
 	var count = 1;
-	while (!grid[currItr][this.column]) {
+	while (grid[currItr] !== undefined && grid[currItr][this.column]) {
 		count += 1;
 		currItr += 1;
 	}
@@ -81,12 +79,15 @@ function initializeWordLocations(grid) {
 				if(direction === ACROSS) {
 					if(grid[r][c + 1]) {
 						emptyAfter = true;
-					} else if (grid[r][c - 1]) {
+					}
+					if(!grid[r][c - 1]) {
 						wallPrior = true;
+					}
 				} else {
-					if(grid[r + 1][c]) {
+					if(grid[r+1] === undefined || grid[r + 1][c] === true) {
 						emptyAfter = true;
-					} else if (grid[r - 1][c]) {
+					}
+					if(grid[r-1] === undefined || grid[r - 1][c] === false) {
 						wallPrior = true;
 					}
 				}
@@ -100,4 +101,17 @@ function initializeWordLocations(grid) {
 	}
 	return wLocations;
 }
-}
+
+var testGrid = [
+	[t, t, f],
+	[t, f, t], 
+	[t, t, t],
+	[t, f, f],
+	[t, f, t],
+	[t, f, t]
+];
+
+console.log(initializeWordLocations(testGrid))
+
+
+
