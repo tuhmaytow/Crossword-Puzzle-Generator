@@ -24,12 +24,16 @@ function loadDict(callback) {
 //  Output:
 //    Arc consistent domains for each variable.
 
+// X = wrodLocations
+// D = All Allowed Words
+// R1 = Unary Constrants -- (size of WL)
+// R2 = Binary Constraints (list of overlapping WL)
  function ac3 (X, D, R1, R2) //X = var, D = domain
  // Initial domains are made consistent with unary constraints.
      for each x in X  //for each values of X
          D(x) := { x in D(x) | R1(x) } //for every value in the domain
      // 'worklist' contains all arcs we wish to prove consistent or not.
-     worklist := { (x, y) | there exists a relation R2(x, y) or a relation R2(y, x) }//make worklist a separate function
+     worklist := { (x, y) | there exists a relation R2(x, y) or a relation R2(y, x) }//make worklist a separate function ****
 
      do
          select any arc (x, y) from worklist //select random arc
@@ -38,13 +42,13 @@ function loadDict(callback) {
              if D(x) is empty //if the domain of x is empty
                  return failure
              else
-                 worklist := worklist + { (z, x) | z != y and there exists a relation R2(x, z) or a relation R2(z, x) }
+                 worklist := worklist + { (z, x) | z != y and there exists a relation R2(x, z) or a relation R2(z, x) } *****
      while worklist not empty
 
  function arc-reduce (x, y)
      bool change = false //iniitalized to false
      for each vx in D(x) //for each value of x in domain
-         find a value vy in D(y) such that vx and vy satisfy the constraint R2(x, y)
+         find a value vy in D(y) such that vx and vy satisfy the constraint R2(x, y) *********
          if there is no such vy {
              D(x) := D(x) - vx //remove from domain
              change := true //and set to true
