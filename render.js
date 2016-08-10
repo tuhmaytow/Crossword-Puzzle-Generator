@@ -1,8 +1,8 @@
 var testArr = [
-	['C', 'A', 'T', 'S'],
-	['O', false, 'O', false],
-	['D', 'O', 'G', false],
-	['D', 'O', 'G', false]
+	['C', 'A', 'T'],
+	['O', false, 'O'],
+	['D', 'O', 'G']
+
 ];
 
 function renderPuzzle(grid) {
