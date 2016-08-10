@@ -1,8 +1,8 @@
 'use strict';
 
-var threeLetterWordsArr = require('./threeLetterWords');
-
-var tempArray = ['dog', 'cat', 'crackers', 'frog', 'bottle', 'boot'];
+// var threeLetterWordsArr = require('./threeLetterWords');
+//
+// var tempArray = ['dog', 'cat', 'crackers', 'frog', 'bottle', 'boot'];
 
 const t = true;
 const f = false;
@@ -62,7 +62,21 @@ function initializeWordLocations(grid) {
 	var wLocations = {
 		across: [],
 		down: []
+	};
+	var position = 1;
+	for(var r = 0; r < grid.length; r++) {
+		for(var c = 0; c < grid[r].length; c++) {
+			var square = grid[r][c];
+			for(var pos in wLocations) {
+				if(square !== false || undefined) {
+					var index = square[pos];
+					wLocations[index].push({'position': });
+				}
+			}
+		}
 	}
+	return wLocations;
+}
 	//for every square in the grid
 	  // if it's a valid WL
 	  // implies checking direction
