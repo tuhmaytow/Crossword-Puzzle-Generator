@@ -68,7 +68,6 @@ function initializeWordLocations(grid) {
 	wLocations[ACROSS] = [];
 	wLocations[DOWN] = [];
 
-	var position = 1;
 	for(var r = 0; r < grid.length; r++) {
 		for(var c = 0; c < grid[r].length; c++) {
 			var square = grid[r][c];
@@ -84,10 +83,10 @@ function initializeWordLocations(grid) {
 						wallPrior = true;
 					}
 				} else {
-					if(grid[r+1] === undefined || grid[r + 1][c] === true) {
+					if(grid[r + 1] !== undefined && grid[r + 1][c] === true) {
 						emptyAfter = true;
 					}
-					if(grid[r-1] === undefined || grid[r - 1][c] === false) {
+					if(grid[r - 1] === undefined || grid[r - 1][c] === false) {
 						wallPrior = true;
 					}
 				}
@@ -102,16 +101,15 @@ function initializeWordLocations(grid) {
 	return wLocations;
 }
 
+
+
+
 var testGrid = [
-	[t, t, f],
-	[t, f, t], 
-	[t, t, t],
-	[t, f, f],
-	[t, f, t],
-	[t, f, t]
+	[t, t, t, t, t],
+	[t, f, t, f, t],
+	[t, t, t, t, t],
+	[t, f, t, f, t],
+	[t, t, t, t, t]
 ];
 
-console.log(initializeWordLocations(testGrid))
-
-
-
+console.log(initializeWordLocations(testGrid));
