@@ -50,10 +50,17 @@ WordLocations.prototype._checkLengthDown = function(grid) {
 	return count;
 };
 
-// Write a function that can reduce the total dictionary to the number of words matching the length of a "word location"
-WordLocations.prototype.reduceDict = function(arr, wordLength) {
-
-};
+// Write a function that can reduce the total dictionary 
+// to the number of words matching the length of a "word location"
+WordLocations.prototype.reduceDict = function(dictArr) {
+	var dictionary = [];
+	for (var i = 0; i < dictArr.length; i++) {
+  		if (dictArr[i].length <= this.length && dictArr[i].length > 1) {
+    		dictionary.push(dictArr[i]);
+  		}
+	}
+	return dictionary;
+}; 
 
 //function that initialize word locations
 //accepts grid as an input
