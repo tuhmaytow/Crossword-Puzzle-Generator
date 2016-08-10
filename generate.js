@@ -10,6 +10,7 @@ const f = false;
 // Define the "word location" class
 const ACROSS = 'across';
 const DOWN = 'down';
+
 var WordLocations = function(direction, row, column, grid) {
 	this.direction = direction;
 	this.row = row;
@@ -54,7 +55,19 @@ WordLocations.prototype.reduceDict = function(arr, wordLength) {
 
 };
 
-//Write a function that finds all the word locations and returns an array.
+//function that initialize word locations
+//accepts grid as an input
+//everytime a location is found, add it to an array
+function initializeWordLocations(grid) {
+	var wLocations = {
+		across: [],
+		down: []
+	}
+	//for every square in the grid
+	  // if it's a valid WL
+	  // implies checking direction
+	  // new WordLocation(dir, row, col, grid)
+}
 
 // write an algorithm to look at word locations and determine if they intersect each other
 // create the domain?
