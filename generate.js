@@ -101,10 +101,7 @@ function initializeWordLocations(grid) {
 	return wLocations;
 }
 
-
-
-
-var testGrid = [
+var grid = [
 	[t, t, t, t, t],
 	[t, f, t, f, t],
 	[t, t, t, t, t],
@@ -112,4 +109,43 @@ var testGrid = [
 	[t, t, t, t, t]
 ];
 
-console.log(initializeWordLocations(testGrid));
+var wLocations = initializeWordLocations(grid);
+
+var findAcrossWL = function(wLocations, row, column) {
+	var dirAcross = wLocations.across;
+	for (var i = 0; i < dirAcross.length; i++) {
+		if (row === dirAcross[i].row && dirAcross[i].column <= column && column < dirAcross[i].column + dirAcross[i].length) {
+			return dirAcross[i];
+		}
+	}
+	return false;
+};
+
+var findDownWL = function(wLocations, row, column) {
+	var dirDown = wLocations.down;
+	for (var i = 0; i < dirDown.length; i++) {
+		if (column === dirDown[i].column && dirDown[i].row <= row && row < dirDown[i].row + dirDown[i].length) {
+			return dirDown[i];
+		}
+	}
+	return false;
+};
+
+var r2 = function(wLocations) {
+	var result = [];
+	var dirAcross = wLocations.across;
+	var dirDown = wLocations.down;
+	for (var i = 0; i < dirAcross.length; i++) {
+		for (var j = 0; j < dirDown.length; j++) {
+			var acrossWL = findAcrossWL(wLocations, dirAcross[i].row, dirAcross[i].column);
+			var downWL = findDownWL(wLocations, dirDown[j].row, dirDown[j].column);
+			if (acrossWL && downWL) {
+				result.push({acrossWL, downWL})
+			}
+		}
+	}
+	return result;
+}			
+
+console.log(r2(wLocations))
+
