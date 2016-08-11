@@ -65,31 +65,31 @@ function initializeWordLocations(grid) {
 	wLocations[ACROSS] = [];
 	wLocations[DOWN] = [];
 
-	for(var r = 0; r < grid.length; r++) {
-		for(var c = 0; c < grid[r].length; c++) {
-			var square = grid[r][c];
-			for(var direction in wLocations) {
+	for (var row = 0; row < grid.length; row++) {
+		for (var col = 0; col < grid[row].length; col++) {
+			var square = grid[row][col];
+			for (var direction in wLocations) {
 				var wallPrior = false;
 				var emptyAfter = false;
 
-				if(direction === ACROSS) {
-					if(grid[r][c + 1]) {
+				if (direction === ACROSS) {
+					if (grid[row][col + 1]) {
 						emptyAfter = true;
 					}
-					if(!grid[r][c - 1]) {
+					if (!grid[row][col - 1]) {
 						wallPrior = true;
 					}
 				} else {
-					if(grid[r + 1] !== undefined && grid[r + 1][c] === true) {
+					if (grid[row + 1] !== undefined && grid[row + 1][col] === true) {
 						emptyAfter = true;
 					}
-					if(grid[r - 1] === undefined || grid[r - 1][c] === false) {
+					if (grid[row - 1] === undefined || grid[row - 1][col] === false) {
 						wallPrior = true;
 					}
 				}
 
-				if(square && wallPrior && emptyAfter) {
-					var currentLoc = new WordLocation(direction, r, c, grid);
+				if (square && wallPrior && emptyAfter) {
+					var currentLoc = new WordLocation(direction, row, col, grid);
 					wLocations[direction].push(currentLoc);
 				}
 			}
