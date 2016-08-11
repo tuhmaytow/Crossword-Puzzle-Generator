@@ -24,27 +24,30 @@ function loadDict(callback) {
 //  Output:
 //    Arc consistent domains for each variable.
 
-// X = wrodLocations
-// D = All Allowed Words
-// R1 = Unary Constrants -- (size of WL)
-// R2 = Binary Constraints (list of overlapping WL)
- function ac3 (X, D, R1, R2) //X = var, D = domain
- // Initial domains are made consistent with unary constraints.
-     for each x in X  //for each values of X
-         D(x) := { x in D(x) | R1(x) } //for every value in the domain
+/
+ function ac3 (allWordLocations, allWords) 
+    // WordLocation Domains are set to only words of the proper length
+     for each wordLocation in allWordLocations 
+         wordLocation.reduceDict(allWords)
+     
      // 'worklist' contains all arcs we wish to prove consistent or not.
-
-     worklist := { (x, y) | there exists a relation R2(x, y) or a relation R2(y, x) } //wordLocations****
-
+     //var worklist := { (x, y) | there exists a relation R2(x, y) or a relation R2(y, x) } //wordLocations****
+     var worklist = findOverlappingWL(allWordLocations)
 
      do
-         select any arc (x, y) from worklist //select random arc from wordLocations
-         worklist := worklist - (x, y)
-         if arc-reduce (x, y)
-             if D(x) is empty //if the domain of x is empty
+         // select any arc (x, y) from worklist //select random arc from wordLocations
+         // worklist := worklist - (x, y)
+         arc = selectAndRemoveRandomArc(worklist);
+         var leftWL = arc[0];
+         var rightWL = arc[1];
+
+         if arc-reduce (leftWL, rightWL)
+             if leftWL.wordsRemaining.length === 0 //if the domain of x is empty
                  return failure
              else
-                 worklist := worklist + { (z, x) | z != y and there exists a relation R2(x, z) or a relation R2(z, x) } //*****
+                 var newArcs = expandWL(allWordLocations, leftWL, rightWL);
+                 worklist.concat(newArcs);
+                 // worklist := worklist + { (otherWL, leftWL) | otherWL != rightWL and otherWL intersects with leftWL } //*****
      while worklist not empty
 
  function arc-reduce (x, y)
