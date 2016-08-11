@@ -101,7 +101,37 @@ function initializeWordLocations(grid) {
 	return wLocations;
 }
 
+// function r2(grid) {
+// 	var newLocation = {};
+// 	var down = grid.down;
+// 	var across = grid.across;
+// 	var comboArr = [];
+// 	for(var r = 0; r < across.length; r++) {
+// 		for(var c = 0; c < down[r].length; c++) {
+// 			for(var square in newLocation) {
+//
+// 			}
+// 		}
+// 	}
+// }
 
+var initializedWLGrid = initializeWordLocations(grid);
+var r2Across = function(initializedWLGrid) {
+    var across = [];
+    var dirAcross = initializedWLGrid.across;
+    for (var i = 0; i < dirAcross.length; i++) {
+        across.push([dirAcross[i].row, dirAcross[i].column, dirAcross[i].length]);
+    }
+    return across;
+};
+var r2Down = function(initializedWLGrid) {
+    var down = [];
+    var dirDown = initializedWLGrid.down;
+    for (var i = 0; i < dirDown.length; i++) {
+        down.push([dirDown[i].row, dirDown[i].column, dirDown[i].length]);
+    }
+    return down;
+};
 
 
 var testGrid = [
@@ -112,4 +142,16 @@ var testGrid = [
 	[t, t, t, t, t]
 ];
 
+
 console.log(initializeWordLocations(testGrid));
+
+
+// [ { acrossWL: [ 0, 0 ], downWL: [ 0, 0 ] },
+//   { acrossWL: [ 0, 0 ], downWL: [ 0, 2 ] },
+//   { acrossWL: [ 0, 0 ], downWL: [ 0, 4 ] },
+//   { acrossWL: [ 2, 0 ], downWL: [ 0, 0 ] },
+//   { acrossWL: [ 2, 0 ], downWL: [ 0, 2 ] },
+//   { acrossWL: [ 2, 0 ], downWL: [ 0, 4 ] },
+//   { acrossWL: [ 4, 0 ], downWL: [ 0, 0 ] },
+//   { acrossWL: [ 4, 0 ], downWL: [ 0, 2 ] },
+//   { acrossWL: [ 4, 0 ], downWL: [ 0, 4 ] } ]
