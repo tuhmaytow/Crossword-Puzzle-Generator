@@ -13,7 +13,7 @@ var WordLocation = function(direction, row, column, grid) {
 	this.row = row;
 	this.column = column;
 	this.length = this.checkLength(grid);
-	this.domain = []; //list of words
+	this.wordsRemaining = []; //domain
 };
 
 //return length of WordLocation
@@ -56,7 +56,7 @@ WordLocation.prototype.reduceDict = function(dictArr) {
     		dictionary.push(dictArr[i]);
   		}
 	}
-	this.domain = dictionary;
+	this.wordsRemaining = dictionary;
 };
 
 // everytime a location is found, add it to an array
@@ -129,7 +129,7 @@ var findDownWL = function(wLocations, row, column) {
 	return false;
 };
 
-var r2 = function(wLocations) {
+var findOverlappingWL = function(wLocations) {
 	var result = [];
 	var dirAcross = wLocations.across;
 	var dirDown = wLocations.down;
@@ -138,11 +138,52 @@ var r2 = function(wLocations) {
 			var acrossWL = findAcrossWL(wLocations, dirAcross[i].row, dirAcross[i].column);
 			var downWL = findDownWL(wLocations, dirDown[j].row, dirDown[j].column);
 			if (acrossWL && downWL) {
-				result.push({acrossWL, downWL});
+				// Arcs are not order independent, but constraints are symmetrical
+				result.push([acrossWL, downWL]);
+				result.push([downWL, acrossWL]);
 			}
 		}
 	}
 	return result;
 };
 
-console.log(r2(wLocations));
+//  { (otherWL, leftWL) | otherWL != rightWL and otherWL intersects with leftWL }
+var expandWL = function(wLocations, leftWL, rightWL) {
+	var result = [];
+	var dirAcross = wLocations.across;
+	var dirDown = wLocations.down;
+	for (var i = 0; i < dirAcross.length; i++) {
+		for (var j = 0; j < dirDown.length; j++) {
+			var acrossWL = findAcrossWL(wLocations, dirAcross[i].row, dirAcross[i].column);
+			var downWL = findDownWL(wLocations, dirDown[j].row, dirDown[j].column);
+			if (acrossWL && downWL) {
+
+				if(acrossWL === leftWL && downWL !== rightWL) {
+					result.push([downWL, leftWL])
+				}
+				else if(downWL === leftWL && acrossWL !== rightWL) {
+					result.push([acrossWL, leftWL])
+				}
+			}
+		}
+	}
+	return result;
+};
+
+var intersectingWLs = findOverlappingWL(wLocations);
+console.log(intersectingWLs);
+
+function getRandom(min, max) {
+  return Math.random() * (max - min) + min;
+}
+
+var selectAndRemoveRandomArc = function(intersectingWLs) {
+	var random = Math.floor(getRandom(0, intersectingWLs.length - 1));
+	var randomArc = intersectingWLs[random];
+
+	intersectingWLs.splice(random, 1);
+
+	return randomArc;
+}
+
+console.log(selectRandomArc(intersectingWLs))
