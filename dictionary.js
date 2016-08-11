@@ -33,16 +33,18 @@ function loadDict(callback) {
      for each x in X  //for each values of X
          D(x) := { x in D(x) | R1(x) } //for every value in the domain
      // 'worklist' contains all arcs we wish to prove consistent or not.
-     worklist := { (x, y) | there exists a relation R2(x, y) or a relation R2(y, x) }
+
+     worklist := { (x, y) | there exists a relation R2(x, y) or a relation R2(y, x) } //wordLocations****
+
 
      do
-         select any arc (x, y) from worklist //select random arc
+         select any arc (x, y) from worklist //select random arc from wordLocations
          worklist := worklist - (x, y)
          if arc-reduce (x, y)
              if D(x) is empty //if the domain of x is empty
                  return failure
              else
-                 worklist := worklist + { (z, x) | z != y and there exists a relation R2(x, z) or a relation R2(z, x) } *****
+                 worklist := worklist + { (z, x) | z != y and there exists a relation R2(x, z) or a relation R2(z, x) } //*****
      while worklist not empty
 
  function arc-reduce (x, y)

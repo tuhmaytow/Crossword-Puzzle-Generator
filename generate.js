@@ -89,7 +89,7 @@ function initializeWordLocations(grid) {
 				}
 
 				if(square && wallPrior && emptyAfter) {
-					var currentLoc = new WordLocations(direction, r, c, grid);
+					var currentLoc = new WordLocation(direction, r, c, grid);
 					wLocations[direction].push(currentLoc);
 				}
 			}
@@ -97,6 +97,7 @@ function initializeWordLocations(grid) {
 	}
 	return wLocations;
 }
+
 
 var grid = [
 	[t, t, t, t, t],
@@ -137,12 +138,11 @@ var r2 = function(wLocations) {
 			var acrossWL = findAcrossWL(wLocations, dirAcross[i].row, dirAcross[i].column);
 			var downWL = findDownWL(wLocations, dirDown[j].row, dirDown[j].column);
 			if (acrossWL && downWL) {
-				result.push({acrossWL, downWL})
+				result.push({acrossWL, downWL});
 			}
 		}
 	}
 	return result;
-}			
+};
 
-console.log(r2(wLocations))
-
+console.log(r2(wLocations));
