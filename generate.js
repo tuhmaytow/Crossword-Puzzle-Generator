@@ -5,11 +5,10 @@ var threeLetterWordsArr = require('./threeLetterWords');
 const t = true;
 const f = false;
 
-// Define the "word location" class
 const ACROSS = 'across';
 const DOWN = 'down';
 
-var WordLocations = function(direction, row, column, grid) {
+var WordLocation = function(direction, row, column, grid) {
 	this.direction = direction;
 	this.row = row;
 	this.column = column;
@@ -17,8 +16,8 @@ var WordLocations = function(direction, row, column, grid) {
 	this.domain = []; //list of words
 };
 
-WordLocations.prototype.checkLength = function(grid) {
-	//return length of WordLocation
+//return length of WordLocation
+WordLocation.prototype.checkLength = function(grid) {
 	if (this.direction === ACROSS) {
 		return this._checkLengthAcross(grid);
 	} else if (this.direction === DOWN) {
@@ -28,7 +27,7 @@ WordLocations.prototype.checkLength = function(grid) {
 	}
 };
 
-WordLocations.prototype._checkLengthAcross = function(grid) {
+WordLocation.prototype._checkLengthAcross = function(grid) {
 	var currItr = this.column + 1;
 	var count = 1;
 	while (grid[this.row][currItr]) {
@@ -38,7 +37,7 @@ WordLocations.prototype._checkLengthAcross = function(grid) {
 	return count;
 };
 
-WordLocations.prototype._checkLengthDown = function(grid) {
+WordLocation.prototype._checkLengthDown = function(grid) {
 	var currItr = this.row + 1;
 	var count = 1;
 	while (grid[currItr] !== undefined && grid[currItr][this.column]) {
@@ -48,21 +47,19 @@ WordLocations.prototype._checkLengthDown = function(grid) {
 	return count;
 };
 
-// Write a function that can reduce the total dictionary
-// to the number of words matching the length of a "word location"
-WordLocations.prototype.reduceDict = function(dictArr) {
+
+// reduce the total dictionaryto the number of words matching the length of a word location
+WordLocation.prototype.reduceDict = function(dictArr) {
 	var dictionary = [];
 	for (var i = 0; i < dictArr.length; i++) {
   		if (dictArr[i].length <= this.length && dictArr[i].length > 1) {
     		dictionary.push(dictArr[i]);
   		}
 	}
-	return dictionary;
+	this.domain = dictionary;
 };
 
-//function that initialize word locations
-//accepts grid as an input
-//everytime a location is found, add it to an array
+// everytime a location is found, add it to an array
 function initializeWordLocations(grid) {
 	var wLocations = {};
 	wLocations[ACROSS] = [];
