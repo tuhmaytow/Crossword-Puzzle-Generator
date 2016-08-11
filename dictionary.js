@@ -33,7 +33,7 @@ function loadDict(callback) {
      for each x in X  //for each values of X
          D(x) := { x in D(x) | R1(x) } //for every value in the domain
      // 'worklist' contains all arcs we wish to prove consistent or not.
-     worklist := { (x, y) | there exists a relation R2(x, y) or a relation R2(y, x) }//make worklist a separate function ****
+     worklist := { (x, y) | there exists a relation R2(x, y) or a relation R2(y, x) }
 
      do
          select any arc (x, y) from worklist //select random arc
@@ -47,9 +47,9 @@ function loadDict(callback) {
 
  function arc-reduce (x, y)
      bool change = false //iniitalized to false
-     for each vx in D(x) //for each value of x in domain
-         find a value vy in D(y) such that vx and vy satisfy the constraint R2(x, y) *********
-         if there is no such vy {
-             D(x) := D(x) - vx //remove from domain
+     for each wordRemainingX in D(x) //for each value of x in domain
+         find a value wordRemainingY in D(y) such that wordRemainingX and wordRemainingY satisfy the constraint R2(x, y) *********
+         if there is no such wordRemainingY {
+             D(x) := D(x) - wordRemainingX //remove from domain
              change := true //and set to true
      return change
