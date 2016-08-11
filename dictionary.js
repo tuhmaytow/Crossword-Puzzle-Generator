@@ -24,7 +24,6 @@ function loadDict(callback) {
 //  Output:
 //    Arc consistent domains for each variable.
 
-/
  function ac3 (allWordLocations, allWords) 
     // WordLocation Domains are set to only words of the proper length
      for each wordLocation in allWordLocations 
@@ -50,8 +49,8 @@ function loadDict(callback) {
                  // worklist := worklist + { (otherWL, leftWL) | otherWL != rightWL and otherWL intersects with leftWL } //*****
      while worklist not empty
 
- function arc-reduce (x, y)
-     bool change = false //iniitalized to false
+ function arcReduce (leftWL, rightWL)
+     var change = false //iniitalized to false
      for each wordRemainingX in D(x) //for each value of x in domain
          find a value wordRemainingY in D(y) such that wordRemainingX and wordRemainingY satisfy the constraint R2(x, y) *********
          if there is no such wordRemainingY {
