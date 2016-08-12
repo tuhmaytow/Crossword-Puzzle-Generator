@@ -23,11 +23,10 @@ var ac3 = function (grid, allWords) {
                 return "No Possible Solutions";
             } else {
                 var newArcs = expandWL(allWordLocations, leftWL, rightWL);
-                worklist.concat(newArcs);
+                worklist = worklist.concat(newArcs);
             }
         }
     }
-
     return allWordLocations;
 }
 
@@ -35,7 +34,7 @@ var arcReduce = function(leftWL, rightWL) {
     var change = false;
 
     // Find the proper indexes that overlap
-    if(leftWL.direction === WordLocation.ACROSS) {
+    if (leftWL.direction === WordLocation.ACROSS) {
         var leftWordIdx = rightWL.column - leftWL.column; 
         var rightWordIdx = leftWL.row - rightWL.row;
     }
@@ -43,12 +42,12 @@ var arcReduce = function(leftWL, rightWL) {
         var leftWordIdx = rightWL.row - leftWL.row; 
         var rightWordIdx = leftWL.column - rightWL.column;
     }
-
-    for (var leftIdx in leftWL.wordsRemaining) {
+    // console.log('Remaining Words: ',leftWL.wordsRemaining)
+    for (var leftIdx = 0; leftIdx < leftWL.wordsRemaining.length; leftIdx++) {
         var leftWord = leftWL.wordsRemaining[leftIdx];
         var leftWordFits = false;
-
-        for (var rightIdx in rightWL.wordsRemaining) {
+        // console.log('Trying ', leftWord)
+        for (var rightIdx = 0; rightIdx < rightWL.wordsRemaining.length; rightIdx++) {
             var rightWord = rightWL.wordsRemaining[rightIdx];
             
             if (leftWord[leftWordIdx] === rightWord[rightWordIdx]) { /* find a word that works */
@@ -58,8 +57,9 @@ var arcReduce = function(leftWL, rightWL) {
         }
 
         if (!leftWordFits) { /* never found a word that fits*/
-            // Remove wordRemainingX from leftWL.wordsRemainig
+            console.log('Removing word', leftWL.wordsRemaining[leftIdx])
             leftWL.wordsRemaining.splice(leftIdx, 1);
+            leftIdx--; // if you don't do this, you'll skip a word b/c we spliced a word out above
             change = true;
         }
     }
@@ -104,9 +104,6 @@ function initializeWordLocations(grid) {
     }
     return wLocations;
 }
-
-
-
 
 var findAcrossWL = function(wLocations, row, column) {
     var dirAcross = wLocations.across;
@@ -178,11 +175,12 @@ var expandAlt = function(wLocations, leftWL, rightWL) {
         var otherWLs = wLocations.across;
     }
 
+    // worklist := worklist + { (otherWL, leftWL) | otherWL != rightWL and otherWL intersects with leftWL }
     for(var otherKey in otherWLs) {
         var otherWL = otherWL[otherKey];
         //determine if leftWL overlaps with otherWL
         // AND otherWL is not rightWL
-        // otherWL.row <= leftWL.row + leftWL.length
+
     }
 }
 
