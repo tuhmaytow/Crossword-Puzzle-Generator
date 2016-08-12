@@ -1,3 +1,5 @@
+// var grid = require('./main')
+
 var testArr = [
 	['C', 'A', 'T'],
 	['O', false, 'O'],

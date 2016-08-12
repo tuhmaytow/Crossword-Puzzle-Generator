@@ -44,7 +44,6 @@ WordLocation.prototype._checkLengthDown = function(grid) {
 	return count;
 };
 
-
 // reduce the total dictionary to the number of words matching the length of a word location
 WordLocation.prototype.reduceDict = function(dictArr) {
 	var dictionary = [];
