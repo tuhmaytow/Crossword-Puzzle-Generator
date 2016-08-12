@@ -1,9 +1,6 @@
 'use strict';
 
-var threeLetterWordsArr = require('./threeLetterWords');
-
-const t = true;
-const f = false;
+var dictionary = require('./wordlist');
 
 const ACROSS = 'across';
 const DOWN = 'down';
@@ -48,142 +45,17 @@ WordLocation.prototype._checkLengthDown = function(grid) {
 };
 
 
-// reduce the total dictionaryto the number of words matching the length of a word location
+// reduce the total dictionary to the number of words matching the length of a word location
 WordLocation.prototype.reduceDict = function(dictArr) {
 	var dictionary = [];
 	for (var i = 0; i < dictArr.length; i++) {
-  		if (dictArr[i].length <= this.length && dictArr[i].length > 1) {
+  		if (dictArr[i].length === this.length) {
     		dictionary.push(dictArr[i]);
   		}
 	}
 	this.wordsRemaining = dictionary;
 };
 
-// everytime a location is found, add it to an array
-function initializeWordLocations(grid) {
-	var wLocations = {};
-	wLocations[ACROSS] = [];
-	wLocations[DOWN] = [];
-
-	for (var row = 0; row < grid.length; row++) {
-		for (var col = 0; col < grid[row].length; col++) {
-			var square = grid[row][col];
-			for (var direction in wLocations) {
-				var wallPrior = false;
-				var emptyAfter = false;
-
-				if (direction === ACROSS) {
-					if (grid[row][col + 1]) {
-						emptyAfter = true;
-					}
-					if (!grid[row][col - 1]) {
-						wallPrior = true;
-					}
-				} else {
-					if (grid[row + 1] !== undefined && grid[row + 1][col] === true) {
-						emptyAfter = true;
-					}
-					if (grid[row - 1] === undefined || grid[row - 1][col] === false) {
-						wallPrior = true;
-					}
-				}
-
-				if (square && wallPrior && emptyAfter) {
-					var currentLoc = new WordLocation(direction, row, col, grid);
-					wLocations[direction].push(currentLoc);
-				}
-			}
-		}
-	}
-	return wLocations;
-}
-
-
-var grid = [
-	[t, t, t, t, t],
-	[t, f, t, f, t],
-	[t, t, t, t, t],
-	[t, f, t, f, t],
-	[t, t, t, t, t]
-];
-
-var wLocations = initializeWordLocations(grid);
-
-var findAcrossWL = function(wLocations, row, column) {
-	var dirAcross = wLocations.across;
-	for (var i = 0; i < dirAcross.length; i++) {
-		if (row === dirAcross[i].row && dirAcross[i].column <= column && column < dirAcross[i].column + dirAcross[i].length) {
-			return dirAcross[i];
-		}
-	}
-	return false;
-};
-
-var findDownWL = function(wLocations, row, column) {
-	var dirDown = wLocations.down;
-	for (var i = 0; i < dirDown.length; i++) {
-		if (column === dirDown[i].column && dirDown[i].row <= row && row < dirDown[i].row + dirDown[i].length) {
-			return dirDown[i];
-		}
-	}
-	return false;
-};
-
-var findOverlappingWL = function(wLocations) {
-	var result = [];
-	var dirAcross = wLocations.across;
-	var dirDown = wLocations.down;
-	for (var i = 0; i < dirAcross.length; i++) {
-		for (var j = 0; j < dirDown.length; j++) {
-			var acrossWL = findAcrossWL(wLocations, dirAcross[i].row, dirAcross[i].column);
-			var downWL = findDownWL(wLocations, dirDown[j].row, dirDown[j].column);
-			if (acrossWL && downWL) {
-				// Arcs are not order independent, but constraints are symmetrical
-				result.push([acrossWL, downWL]);
-				result.push([downWL, acrossWL]);
-			}
-		}
-	}
-	return result;
-};
-
-//  { (otherWL, leftWL) | otherWL != rightWL and otherWL intersects with leftWL }
-var expandWL = function(wLocations, leftWL, rightWL) {
-	var result = [];
-	var dirAcross = wLocations.across;
-	var dirDown = wLocations.down;
-	for (var i = 0; i < dirAcross.length; i++) {
-		for (var j = 0; j < dirDown.length; j++) {
-			var acrossWL = findAcrossWL(wLocations, dirAcross[i].row, dirAcross[i].column);
-			var downWL = findDownWL(wLocations, dirDown[j].row, dirDown[j].column);
-			if (acrossWL && downWL) {
-
-				if(acrossWL === leftWL && downWL !== rightWL) {
-					result.push([downWL, leftWL])
-				}
-				else if(downWL === leftWL && acrossWL !== rightWL) {
-					result.push([acrossWL, leftWL])
-				}
-			}
-		}
-	}
-	return result;
-};
-
-var intersectingWLs = findOverlappingWL(wLocations);
-console.log(intersectingWLs);
-
-function getRandom(min, max) {
-  return Math.random() * (max - min) + min;
-}
-
-var selectAndRemoveRandomArc = function(intersectingWLs) {
-	var random = Math.floor(getRandom(0, intersectingWLs.length - 1));
-	var randomArc = intersectingWLs[random];
-
-	intersectingWLs.splice(random, 1);
-
-	return randomArc;
-}
-
-console.log(selectRandomArc(intersectingWLs))
+WordLocation.ACROSS = ACROSS;
+WordLocation.DOWN = DOWN;
+module.exports = WordLocation;
