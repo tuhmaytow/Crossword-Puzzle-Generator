@@ -1,15 +1,16 @@
 var WordLocation = require('./generate.js')
 
-var ac3 = function (grid, allWords) {
 
-    var allWordLocations = initializeWordLocations(grid);
+var ac3 = function (allWordLocations, allWords) { //(grid, allWords)
+
+    // var allWordLocations = initializeWordLocations(grid);
     
-    for (var direction in allWordLocations) {
-        for(var idx in allWordLocations[direction]) {
-            var wordLocation = allWordLocations[direction][idx];
-            wordLocation.reduceDict(allWords);
-        } 
-    } 
+    // for (var direction in allWordLocations) {
+    //     for(var idx in allWordLocations[direction]) {
+    //         var wordLocation = allWordLocations[direction][idx];
+    //         wordLocation.reduceDict(allWords);
+    //     } 
+    // } 
 
     var worklist = findOverlappingWL(allWordLocations);
 
@@ -199,7 +200,9 @@ var selectAndRemoveRandomArc = function(intersectingWLs) {
 
 
 module.exports = {
-    ac3: ac3
+    ac3: ac3,
+    initializeWordLocations: initializeWordLocations,
+    getRandom: getRandom
 }
 
 
