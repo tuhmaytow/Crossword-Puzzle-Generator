@@ -37,7 +37,6 @@ var generatePuzzle = function() {
 		var randomIdx = Math.floor(arcConsistency.getRandom(0, allWordLocations.across[i].wordsRemaining.length - 1));
 		var randomWord = allWordLocations.across[i].wordsRemaining[randomIdx];
 		allWordLocations.across[i].wordsRemaining = [randomWord];
-		console.log(allWordLocations.across[i].wordsRemaining)
 	}
 
 	var wl = arcConsistency.ac3(allWordLocations, dictionary);
@@ -46,7 +45,6 @@ var generatePuzzle = function() {
 	}
 
 	for (var i = 0; i < wl.down.length; i++) {
-		//if words remaining > 0
 		if (wl.down[i].wordsRemaining.length === 0) {
 			return generatePuzzle();
 		}
@@ -61,20 +59,50 @@ var generatePuzzle = function() {
 
 var wl = generatePuzzle();
 
-for(var key in wl.across) {
-	var oneWL = wl.across[key]
-	console.log(oneWL.row, oneWL.column, oneWL.direction);
-	for(var idx in wl.across[key].wordsRemaining) {
-		console.log(oneWL.wordsRemaining[idx])
+
+var fillPuzzle = function(grid) {
+	for(var key in wl.across) {
+		var oneWL = wl.across[key]
+		for(var idx in wl.across[key].wordsRemaining) {
+			var word = oneWL.wordsRemaining[idx]
+			var row = oneWL.row;
+			var column = oneWL.column;
+			for (var i = 0; i < word.length; i++) {
+				grid[row][column + i] = word[i];
+			}
+		}
 	}
+
+	for(var key in wl.down) {
+		var oneWL = wl.down[key]
+		for(var idx in wl.down[key].wordsRemaining) {
+			var word = oneWL.wordsRemaining[idx]
+			var row = oneWL.row;
+			var column = oneWL.column;
+			for (var i = 0; i < word.length; i++) {
+				grid[row + i][column] = word[i];
+			}
+		}
+	}
+	return grid
 }
 
-for(var key in wl.down) {
-	var oneWL = wl.down[key]
-	console.log(oneWL.row, oneWL.column, oneWL.direction);
-	for(var idx in wl.down[key].wordsRemaining) {
-		console.log(oneWL.wordsRemaining[idx])
-	}
-}
+console.log(fillPuzzle(grid))
+
+// for(var key in wl.across) {
+// 	var oneWL = wl.across[key]
+// 	console.log(oneWL.row, oneWL.column, oneWL.direction);
+// 	for(var idx in wl.across[key].wordsRemaining) {
+// 		console.log(oneWL.wordsRemaining[idx])
+// 	}
+// }
+
+// for(var key in wl.down) {
+// 	var oneWL = wl.down[key]
+// 	console.log(oneWL.row, oneWL.column, oneWL.direction);
+// 	for(var idx in wl.down[key].wordsRemaining) {
+// 		console.log(oneWL.wordsRemaining[idx])
+// 	}
+// }
 
 

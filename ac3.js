@@ -58,7 +58,7 @@ var arcReduce = function(leftWL, rightWL) {
         }
 
         if (!leftWordFits) { /* never found a word that fits*/
-            console.log('Removing word', leftWL.wordsRemaining[leftIdx])
+            // console.log('Removing word', leftWL.wordsRemaining[leftIdx])
             leftWL.wordsRemaining.splice(leftIdx, 1);
             leftIdx--; // if you don't do this, you'll skip a word b/c we spliced a word out above
             change = true;
