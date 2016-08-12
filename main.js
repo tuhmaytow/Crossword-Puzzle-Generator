@@ -84,7 +84,14 @@ var fillPuzzle = function(grid) {
 			}
 		}
 	}
-	return grid
+	for (var i = 0; i < grid.length; i++) {
+		for (var j = 0; j < grid[i].length; j++) {
+			if (grid[i][j] === false) {
+				grid[i][j] = '*'
+			}
+		}
+	}
+	return grid;
 }
 
 console.log(fillPuzzle(grid))
@@ -105,4 +112,4 @@ console.log(fillPuzzle(grid))
 // 	}
 // }
 
-
+module.exports = fillPuzzle(grid)

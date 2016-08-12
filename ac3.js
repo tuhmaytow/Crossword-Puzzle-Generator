@@ -168,22 +168,22 @@ var expandWL = function(wLocations, leftWL, rightWL) {
     return result;
 };
 
-var expandAlt = function(wLocations, leftWL, rightWL) {
-    if(leftWL.direction === WordLocation.ACROSS) {
-        var otherWLs = wLocations.down;
-    }
-    else {
-        var otherWLs = wLocations.across;
-    }
+// var expandAlt = function(wLocations, leftWL, rightWL) {
+//     if(leftWL.direction === WordLocation.ACROSS) {
+//         var otherWLs = wLocations.down;
+//     }
+//     else {
+//         var otherWLs = wLocations.across;
+//     }
 
-    // worklist := worklist + { (otherWL, leftWL) | otherWL != rightWL and otherWL intersects with leftWL }
-    for(var otherKey in otherWLs) {
-        var otherWL = otherWL[otherKey];
-        //determine if leftWL overlaps with otherWL
-        // AND otherWL is not rightWL
+//     // worklist := worklist + { (otherWL, leftWL) | otherWL != rightWL and otherWL intersects with leftWL }
+//     for(var otherKey in otherWLs) {
+//         var otherWL = otherWL[otherKey];
+//         //determine if leftWL overlaps with otherWL
+//         // AND otherWL is not rightWL
 
-    }
-}
+//     }
+// }
 
 function getRandom(min, max) {
   return Math.random() * (max - min) + min;
