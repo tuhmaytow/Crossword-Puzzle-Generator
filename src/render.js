@@ -1,11 +1,11 @@
-// var grid = require('./main')
+var grid = require('./main')
 
-var testArr = [
-	['C', 'A', 'T'],
-	['O', false, 'O'],
-	['D', 'O', 'G']
+// var testArr = [
+// 	['C', 'A', 'T'],
+// 	['O', false, 'O'],
+// 	['D', 'O', 'G']
 
-];
+// ];
 
 function renderPuzzle(grid) {
 	var html = '';
@@ -23,4 +23,4 @@ function renderPuzzle(grid) {
 	return html;
 }
 
-document.getElementById('puzzle').innerHTML = renderPuzzle(testArr);
+document.getElementById('puzzle').innerHTML = renderPuzzle(grid);

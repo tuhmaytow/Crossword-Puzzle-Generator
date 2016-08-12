@@ -15,6 +15,19 @@ var grid = [
 ];
 
 // var grid = [
+// 	[t, t, t, t, f, f, t, t, t, t],
+// 	[t, t, t, t, t, f, t, t, t, t],
+// 	[t, t, t, t, t, f, t, t, t, t],
+// 	[t, t, t, f, t, t, f, t, t, t],
+// 	[f, f, f, t, t, t, t, t, t, f],
+// 	[f, t, t, t, t, t, t, f, f, f],
+// 	[t, t, t, f, t, t, f, t, t, t],
+// 	[t, t, t, t, f, t, t, t, t, t],
+// 	[t, t, t, t, f, t, t, t, t, t],
+// 	[t, t, t, t, f, f, t, t, t, t]
+// ];
+
+// var grid = [
 // 	[t, t, t],
 // 	[t, f, t],
 // 	[t, f, t]
@@ -84,32 +97,18 @@ var fillPuzzle = function(grid) {
 			}
 		}
 	}
-	for (var i = 0; i < grid.length; i++) {
-		for (var j = 0; j < grid[i].length; j++) {
-			if (grid[i][j] === false) {
-				grid[i][j] = '*'
-			}
-		}
-	}
+	// for (var i = 0; i < grid.length; i++) {
+	// 	for (var j = 0; j < grid[i].length; j++) {
+	// 		if (grid[i][j] === false) {
+	// 			grid[i][j] = '*'
+	// 		}
+	// 	}
+	// }
 	return grid;
 }
 
 console.log(fillPuzzle(grid))
 
-// for(var key in wl.across) {
-// 	var oneWL = wl.across[key]
-// 	console.log(oneWL.row, oneWL.column, oneWL.direction);
-// 	for(var idx in wl.across[key].wordsRemaining) {
-// 		console.log(oneWL.wordsRemaining[idx])
-// 	}
-// }
+var exportGrid = fillPuzzle(grid)
 
-// for(var key in wl.down) {
-// 	var oneWL = wl.down[key]
-// 	console.log(oneWL.row, oneWL.column, oneWL.direction);
-// 	for(var idx in wl.down[key].wordsRemaining) {
-// 		console.log(oneWL.wordsRemaining[idx])
-// 	}
-// }
-
-module.exports = fillPuzzle(grid)
+module.exports = exportGrid;
