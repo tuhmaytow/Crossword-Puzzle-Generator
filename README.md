@@ -15,7 +15,7 @@ pattern cannot be instantiated. To implement arc-consistency, a hash table was u
 <img width="888" alt="screen shot 2016-09-04 at 10 29 24 am" src="https://cloud.githubusercontent.com/assets/16325330/18232703/83a0f1e6-728a-11e6-8b54-363664c569c2.png">
 
 #Word picking strategy
-----------------------------------
+
 The word picking strategy chooses a word from our list of dictionary words to fill a pattern with and maximizes the number of choices for the remaining patterns in the grid. 
 
 #Technologies Implemented
