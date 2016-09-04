@@ -8,7 +8,7 @@ A crossword puzzle is perfect real-world example of aconstraint satisfaction pro
 
 
 #Algorithm
-###AC-3 Algorithm 
+###AC-3 Algorithm (Arc-consistency)
 
 Arc consistency allows determining whether the grid is consistent or there are word patterns which cannot be instantiated with words. Arc-consistency prevents having to search the entire grid for a word pattern to backtrack to when some word
 pattern cannot be instantiated. To implement arc-consistency, a hash table was used which has as keys each element belonging to the “across” and “down” word patterns and as values a list consisting of intersecting word patterns.
