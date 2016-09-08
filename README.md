@@ -4,7 +4,7 @@ A single page app that generates random words into the grid.
 
 #A Constraint Satisfaction Problem
 
-A crossword puzzle is perfect real-world example of aconstraint satisfaction problem. A solution to a crossword puzzle, after all, is an assignment of words to a grid such that each meets a number of constraints: a semantic constraint provided by the clue, a length constraint provided by the grid, and constraints on its its letters provided by the words which it overlaps in the grid. Similarly, the construction of a puzzle is based on similar constraints, although the application is somewhat different. 
+A crossword puzzle is perfect real-world example of a constraint satisfaction problem. A solution to a crossword puzzle, after all, is an assignment of words to a grid such that each meets a number of constraints: a semantic constraint provided by the clue, a length constraint provided by the grid, and constraints on its its letters provided by the words which it overlaps in the grid. Similarly, the construction of a puzzle is based on similar constraints, although the application is somewhat different. 
 
 
 #Algorithm
